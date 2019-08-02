@@ -24,20 +24,6 @@
                     (click)="toggle(index1,index2)" [attr.id]=[index1*9+index2]>
                       <div *ngIf="cell.variants.length > 1; then thenPart; else elsePart"></div>
                       <ng-template #thenPart>
-                        <!--div class="cell-value">&nbsp;</div>
-                        <div class="pencil-grid">
-                          <div class="pencil-grid-cell pencil-grid-cell-1">
-                            <svg>1</svg>
-                          </div>
-                          <div class="pencil-grid-cell pencil-grid-cell-2">2</div>
-                          <div class="pencil-grid-cell pencil-grid-cell-2">3</div>
-                          <div class="pencil-grid-cell pencil-grid-cell-2">4</div>
-                          <div class="pencil-grid-cell pencil-grid-cell-2">5</div>
-                          <div class="pencil-grid-cell pencil-grid-cell-2">6</div>
-                          <div class="pencil-grid-cell pencil-grid-cell-2">7</div>
-                          <div class="pencil-grid-cell pencil-grid-cell-2">8</div>
-                          <div class="pencil-grid-cell pencil-grid-cell-2">9</div>
-                        </div-->
                         <table class="candtb" cellspacing="0" align="center">
                           <tbody>
                             <tr>
@@ -82,7 +68,6 @@
           <nav>
               
             <div class="numpad-wrapper">
-
               <div class="numpad">
                 <div class="numpad-item" *ngFor="let c of value_attr_d; let num = index" (click)="cellSet(num)">
                   <svg xmlns="http://www.w3.org/2000/svg" [attr.width]=[c.width] [attr.height]=[c.height] [attr.viewBox]=[c.viewBox]>
@@ -90,7 +75,6 @@
                   </svg>
                 </div>
               </div>
-
             </div>
 
             <div class="game-controls">

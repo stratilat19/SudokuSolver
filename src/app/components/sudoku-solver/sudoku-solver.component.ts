@@ -1093,34 +1093,83 @@ export class SudokuSolverComponent implements OnInit {
       }
     }
 
-    this.cells[i][j].cellSelected = true;
+    this.cells[i][j].cellSelected = true;// select small cell
 
-    for(let ii:number = 0; ii < 9; ii++) {
+    for(let ii:number = 0; ii < 9; ii++) {// select column
       this.cells[ii][j].highlightTable = true;
     }
   
-    for(let jj:number = 0; jj < 9; jj++) {
+    for(let jj:number = 0; jj < 9; jj++) {// select row
       this.cells[i][jj].highlightTable = true;
     }
 
-    for(let ii:number = i-i%3; ii < i-i%3+3; ii++) {
+    for(let ii:number = i-i%3; ii < i-i%3+3; ii++) {// select big cell
       for(let jj:number = j-j%3; jj < j-j%3+3; jj++) {
 //        console.log("3 toggle i1="+i1+" j1="+j1+" "+(i1+ii)+" "+(j1+jj));
         this.cells[ii][jj].highlightTable = true;
       }
     }
 
-// TODO check conflicts and set style
+// TODO set style
 
 //    console.log("4 toggle i="+i+" j="+j+" "+this.cells[i][j].cellSelected);
   }
 
   cellSet(num: number){
+
+    let iSelected = -1;
+    let jSelected = -1;
+
     for(let i: number = 0; i < 9; i++) {
       for(let j: number = 0; j < 9; j++) {
         if (this.cells[i][j].cellSelected == true){
           this.cells[i][j].variants = [num+1];
           this.cells[i][j].new = true;
+          iSelected = i;
+          jSelected = j;
+        }
+      }
+    }
+
+    if (iSelected == -1){// nothing selected
+      return;
+    }
+
+    for(let ii:number = 0; ii < 9; ii++) {// remove num from column selected
+      if (ii!=iSelected && this.cells[ii][jSelected].variants.length > 1){
+        console.log("  cellSet num="+(num+1)+" "+this.cells[ii][jSelected].variants.toString());
+        let index = this.cells[ii][jSelected].variants.indexOf(num+1);
+        //      console.log("value="+value+" id1="+id1+" id2="+id2+"  j2="+j2+" index="+index);
+        if (index > -1){
+        //        console.log("  value="+value);
+          /*variants = */this.cells[ii][jSelected].variants.splice(index, 1);
+        }
+      }
+    }
+
+    for(let jj:number = 0; jj < 9; jj++) {// remove num from row selected
+      if (jj!=jSelected && this.cells[iSelected][jj].variants.length > 1){
+        console.log("  cellSet num="+(num+1)+" "+this.cells[iSelected][jj].variants.toString());
+        let index = this.cells[iSelected][jj].variants.indexOf(num+1);
+        //      console.log("value="+value+" id1="+id1+" id2="+id2+"  j2="+j2+" index="+index);
+        if (index > -1){
+        //        console.log("  value="+value);
+          /*variants = */this.cells[iSelected][jj].variants.splice(index, 1);
+        }
+      }
+    }
+
+    for(let ii:number = iSelected-iSelected%3; ii < iSelected-iSelected%3+3; ii++) {// remove num from big cell
+      for(let jj:number = jSelected-jSelected%3; jj < jSelected-jSelected%3+3; jj++) {
+//        console.log("3 toggle i1="+i1+" j1="+j1+" "+(i1+ii)+" "+(j1+jj));
+        if (ii!=iSelected && jj!=jSelected && this.cells[ii][jj].variants.length > 1){
+          console.log("  cellSet num="+(num+1)+" "+this.cells[ii][jj].variants.toString());
+          let index = this.cells[ii][jj].variants.indexOf(num+1);
+          //      console.log("value="+value+" id1="+id1+" id2="+id2+"  j2="+j2+" index="+index);
+          if (index > -1){
+          //        console.log("  value="+value);
+            /*variants = */this.cells[ii][jj].variants.splice(index, 1);
+          }
         }
       }
     }

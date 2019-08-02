@@ -161,7 +161,7 @@
     background-color: #bbdefb;
 }
 
-.pencil-grid {
+/*.pencil-grid {
     position: absolute;
     top: 0;
     left: -1px;
@@ -171,7 +171,7 @@
     line-height: 0;
 }
 
-.pencil-grid-cell {
+/*.pencil-grid-cell {
     position: relative;
     width: 33.3333%;
     height: 33.3333%;
@@ -196,7 +196,7 @@
 
 .pencil-grid-cell svg path {
     fill: #94a3b7;
-}
+}*/
 
 .sudoku-wrapper.paused .game-cell svg {
     opacity: 0;
